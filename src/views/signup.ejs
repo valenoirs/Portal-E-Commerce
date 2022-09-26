@@ -1,0 +1,101 @@
+<div class="container-fluid">
+  <div class="row justify-content-center my-5">
+    <div class="col-4">
+      <h4 class="text-success">Daftar</h4>
+      <form method="post" action="/admin/signup" enctype="multipart/form-data">
+        <div class="mb-3">
+          <label for="inputEmail" class="form-label">Email</label>
+          <input
+            type="email"
+            name="email"
+            placeholder="alamat@email.com"
+            class="form-control"
+            id="inputEmail"
+            aria-describedby="emailHelp"
+            required
+          />
+          <div id="emailHelp" class="form-text">
+            Tenang, kami tidak akan memberitahukan ke siapapun.
+          </div>
+        </div>
+        <div class="mb-3">
+          <label for="inputPhone" class="form-label">No. Handphone</label>
+          <input
+            type="tel"
+            name="phone"
+            minlength="11"
+            maxlength="12"
+            placeholder="081234567890"
+            class="form-control"
+            id="inputPhone"
+            required
+          />
+          <div id="phoneHelp" class="form-text">
+            Nomor ini akan digunakan untuk transaksi melalui DANA.
+          </div>
+        </div>
+        <div class="mb-3">
+          <label for="inputName" class="form-label">Nama Toko</label>
+          <input
+            type="text"
+            name="name"
+            placeholder="Martabak Bang Luk"
+            class="form-control"
+            id="inputName"
+            required
+          />
+        </div>
+        <div class="mb-3">
+          <label for="inputPIRT" class="form-label">Sertifikat PIRT</label>
+          <input
+            type="file"
+            name="pirt"
+            class="form-control"
+            id="inputPIRT"
+            required
+          />
+        </div>
+        <div class="mb-3">
+          <label for="exampleInputEmail1" class="form-label"
+            >Sertifikat Halal</label
+          >
+          <input
+            type="file"
+            name="halal"
+            class="form-control"
+            id="inputPIRT"
+            required
+          />
+        </div>
+        <div class="mb-3">
+          <label for="exampleInputPassword1" class="form-label">Password</label>
+          <input
+            type="password"
+            name="password"
+            placeholder="********"
+            minlength="8"
+            class="form-control"
+            id="exampleInputPassword1"
+          />
+        </div>
+        <div class="mb-3">
+          <label for="exampleInputPassword1" class="form-label"
+            >Konfirmasi Password</label
+          >
+          <input
+            type="password"
+            name="passwordConfirmation"
+            minlength="8"
+            placeholder="********"
+            class="form-control"
+            id="exampleInputPassword1"
+          />
+        </div>
+        <p class="form-text">
+          Dengan melanjutkan anda menyetujui syarat dan ketentuan yang berlaku.
+        </p>
+        <button type="submit" class="btn btn-success">Daftar</button>
+      </form>
+    </div>
+  </div>
+</div>

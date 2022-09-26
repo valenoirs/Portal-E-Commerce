@@ -1,0 +1,42 @@
+<div class="container-fluid">
+  <div class="row justify-content-center my-5">
+    <div class="col-4">
+      <h4 class="text-success">Masuk</h4>
+      <form method="post" action="/admin/signin">
+        <div class="mb-3">
+          <label for="exampleInputEmail1" class="form-label">Email</label>
+          <input
+            type="email"
+            name="email"
+            placeholder="alamat@email.com"
+            class="form-control"
+            id="exampleInputEmail1"
+            aria-describedby="emailHelp"
+            required
+          />
+        </div>
+        <div class="mb-3">
+          <label for="exampleInputPassword1" class="form-label">Password</label>
+          <input
+            type="password"
+            name="password"
+            placeholder="********"
+            class="form-control"
+            id="exampleInputPassword1"
+            required
+          />
+        </div>
+        <p class="form-text">
+          Belum memiliki akun? tunggu apa lagi? ayo
+          <a class="text-success text-decoration-none" href="/signup"
+            ><b>Daftar</b></a
+          >
+          sekarang!.
+          <!-- or forget password?
+          <a class="text-success" href="/recovery">Recover</a> -->
+        </p>
+        <button type="submit" class="btn btn-success">Masuk</button>
+      </form>
+    </div>
+  </div>
+</div>
