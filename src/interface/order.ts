@@ -10,10 +10,13 @@ export interface IOrder {
   id?: any;
   adminId: string;
   userId: string;
+  adminName: string;
+  userName: string;
   product: any;
-  orderTotal: number;
+  totalPayment: number;
   status: string;
-  payment: string;
+  note: string;
+  paymentProof: string;
   createdAt?: Date;
   updatedAt?: Date;
 }

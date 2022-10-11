@@ -7,6 +7,7 @@ const AdminSchema: Schema = new Schema<IAdmin>(
     email: { type: String, required: true, unique: true },
     phone: { type: String, required: true, unique: true },
     password: { type: String, required: true },
+    description: { type: String, required: true },
     certificatePIRT: { type: String, required: true },
     certificateHalal: { type: String, required: true },
     isActive: { type: Boolean, required: true, default: false },

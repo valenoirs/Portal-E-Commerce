@@ -14,7 +14,7 @@
     >
       <span class="navbar-toggler-icon"></span>
     </button> -->
-    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+    <!-- <div class="collapse navbar-collapse" id="navbarSupportedContent">
       <ul class="navbar-nav me-auto mb-2 mb-lg-0 p-1">
         <li class="nav-item">
           <a class="nav-link" href="/order"
@@ -31,61 +31,75 @@
             >Profile</a
           >
         </li>
-      </ul>
-      <!-- <div class="d-flex">
-        <% if (locals.idUser) { %>
+      </ul> -->
+      <div class="d-flex">
+        <% if (locals.admin) { %>
         <div class="dropdown">
           <a
-            class="text-light dropdown-toggle"
+            class="text-success dropdown-toggle"
             id="navbarDropdown"
             role="button"
             data-bs-toggle="dropdown"
             aria-expanded="false"
             style="text-decoration: none"
           >
-            <i class="bi bi-person-circle"></i> Selamat Datang, <%=
-            locals.namaUser.split(' ')[0] %>
+            <i class="bi bi-person-circle"></i> <%=
+            locals.admin.name%>
           </a>
           <ul
             class="dropdown-menu dropdown-menu-start dropdown-menu-lg-end"
             aria-labelledby="navbarDropdown"
           >
             <li>
-              <div class="container pe-3 ps-3">
-                <p>
-                  <%= locals.namaUser %>
-                  <br />
-                  <span class="text-secondary" style="font-size: 0.9rem">
-                    <%= locals.emailUser %>
-                  </span>
-                </p>
-              </div>
+                <form
+                method="post"
+                action="/admin?_method=put&updateToko=1"
+                class="dropdown-item"
+              >
+                <input
+                  type="hidden"
+                  name="isOpen"
+                  value="<%= locals.admin.isOpen %>"
+                />
+                <button
+                  type="submit"
+                  class="btn text-secondary"
+                  style="border: 0; padding: 0"
+                >
+                  <% if (locals.admin.isOpen) { %> Tutup Toko <% } else { %> Buka Toko <% } %>
+                </button>
+              </form>
             </li>
             <li><hr class="dropdown-divider" /></li>
             <li>
               <a
-                class="dropdown-item text-danger"
-                href="/edit"
-                style="text-decoration: none"
-                >Edit</a
+                class="dropdown-item text-success text-decoration-none"
+                type="button"
+                data-bs-toggle="modal"
+                data-bs-target="#updateAdmin"
+                >Edit Toko</a
               >
             </li>
             <li>
               <a
-                class="dropdown-item text-danger"
-                href="/signout"
-                style="text-decoration: none"
+                class="dropdown-item text-danger text-decoration-none"
+                href="/admin/signout"
                 >Logout</a
               >
             </li>
           </ul>
         </div>
-        <% } else { %>
-        <a class="text-light" href="/signin" style="text-decoration: none"
-          ><i class="bi bi-box-arrow-in-right"></i> Sign In</a
-        >
         <% } %>
-      </div> -->
+      </div>
+      <!-- <% if (locals.admin) { %>
+        <div class="d-flex">
+          <a class="text-danger" href="/admin/signout" style="text-decoration: none">
+            <h6>
+              <i class="bi bi-box-arrow-in-right"></i> Keluar
+            </h6>
+          </a>
+        </div>
+      <% } %> -->
       </div>
     </div>
   </div>

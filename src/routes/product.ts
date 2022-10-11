@@ -1,11 +1,12 @@
 import { Router } from "express";
-import * as admin from "../controllers/admin";
+import * as product from "../controllers/product";
 
 import { Request } from "express";
 import multer, { FileFilterCallback } from "multer";
 import path from "path";
 import { storage } from "../middleware/multer";
 
+// Multer Option
 const multerOption = {
   fileFilter: function (
     req: Request,
@@ -13,7 +14,7 @@ const multerOption = {
     callback: FileFilterCallback
   ) {
     const ext = path.extname(file.originalname);
-    if (ext !== ".pdf") {
+    if (ext !== ".png") {
       return callback(null, false);
     }
     callback(null, true);
@@ -25,20 +26,12 @@ const upload = multer(multerOption);
 
 export const router = Router();
 
-router.post("/signin", admin.signIn);
+// Product Routing
+router.post("/", upload.single("file"), product.createProduct);
 
-router.post(
-  "/signup",
-  upload.fields([
-    { name: "pirt", maxCount: 1 },
-    { name: "halal", maxCount: 1 },
-  ]),
-  admin.signUp
-);
+router.put("/", upload.single("file"), product.updateProduct);
 
-router.get("/signout", admin.signOut);
-
-router.put("/", admin.updateAdmin);
+router.delete("/", product.deleteProduct);
 
 // API
-router.get("/", admin.readAdmin);
+router.get("/", product.readProduct);

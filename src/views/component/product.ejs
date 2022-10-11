@@ -1,0 +1,173 @@
+<!-- <div class="col">
+  <% if (productNotification.length > 0) { %>
+  <div
+    class="alert alert-primary alert-dismissible fade show m-5"
+    data-aos="fade-down"
+    data-aos-duration="750"
+  >
+    <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+    <i class="bi bi-info-circle-fill"></i> <%= productNotification %>
+  </div>
+  <% } %>
+</div> -->
+
+<% if (productNotification.length > 0) { %>
+<div
+  class="toast-container position-fixed bottom-0 end-0 p-3"
+  data-aos="fade-down"
+  data-aos-duration="750"
+>
+  <div
+    class="toast fade show"
+    role="alert"
+    aria-live="assertive"
+    aria-atomic="true"
+  >
+    <div class="toast-header">
+      <!-- <img src="..." class="rounded me-2" alt="..." /> -->
+      <strong class="me-auto text-success">Notifikasi</strong>
+      <small>Just now.</small>
+      <button
+        type="button"
+        class="btn-close"
+        data-bs-dismiss="toast"
+        aria-label="Close"
+      ></button>
+    </div>
+    <div class="toast-body"><%= productNotification %></div>
+  </div>
+</div>
+<% } %>
+
+<div class="row justify-content-center">
+  <div class="col-10 p-5 text-dark">
+    <div class="mb-5 row">
+      <div class="col">
+        <h4>Product</h4>
+        <a
+          class="text-decoration-none text-success"
+          type="button"
+          data-bs-toggle="modal"
+          data-bs-target="#tambahProduct"
+        >
+          <h5>
+            <i class="bi bi-plus-square-fill"></i>
+          </h5>
+        </a>
+      </div>
+    </div>
+
+    <% if (product.length === 0) { %>
+    <div class="row">
+      <div class="col">
+        <div class="alert alert-success alert-dismissible fade show">
+          <button
+            type="button"
+            class="btn-close"
+            data-bs-dismiss="alert"
+          ></button>
+          <i class="bi bi-info-circle-fill"></i> Belum ada produk yang
+          didaftarkan, harap tambah produk baru untuk memulai.
+        </div>
+      </div>
+    </div>
+    <% } %>
+
+    <div class="row">
+      <% product.forEach(product => { %>
+      <div class="col-12 col-sm-6">
+        <div class="card mb-3" style="max-width: 550px">
+          <div class="row g-0">
+            <div class="col-md-4">
+              <img
+                src="<%= product.picture %>"
+                class="img-fluid rounded-start"
+                alt="food"
+              />
+            </div>
+            <div class="col-md-8">
+              <div class="card-body">
+                <div class="dropdown">
+                  <a
+                    class="dropdown-toggle text-success text-decoration-none"
+                    type="button"
+                    data-bs-toggle="dropdown"
+                    aria-expanded="false"
+                  >
+                    <span class="fs-5 fw-semibold"><%= product.name %></span>
+                  </a>
+
+                  <ul class="dropdown-menu">
+                    <li>
+                      <a
+                        class="dropdown-item"
+                        type="button"
+                        data-bs-toggle="modal"
+                        data-bs-target="#update<%= product.id %>"
+                      >
+                        <p class="card-title text-success">Edit Product</p>
+                      </a>
+                    </li>
+                    <li>
+                      <a
+                        class="dropdown-item"
+                        type="button"
+                        data-bs-toggle="modal"
+                        data-bs-target="#delete<%= product.id %>"
+                      >
+                        <p class="card-title text-danger">Hapus Product</p>
+                      </a>
+                    </li>
+                    <li><hr class="dropdown-divider" /></li>
+                    <li>
+                      <form
+                        method="post"
+                        action="/product?_method=put&updateStock=1"
+                        class="dropdown-item"
+                      >
+                        <input
+                          type="hidden"
+                          name="productId"
+                          value="<%= product.id %>"
+                        />
+                        <input
+                          type="hidden"
+                          name="available"
+                          value="<%= product.available %>"
+                        />
+                        <button
+                          type="submit"
+                          class="btn text-secondary"
+                          style="border: 0; padding: 0"
+                        >
+                          <% if (product.available) { %> Habis <% } else { %>
+                          Tersedia <% } %>
+                        </button>
+                      </form>
+                    </li>
+                  </ul>
+                </div>
+                <p class="card-text">Rp. <%= product.price %></p>
+                <% if (product.available) { %>
+                <p>
+                  Status :
+                  <span class="text-success fs-6 fw-semibold">Tersedia</span>
+                </p>
+                <% } else { %>
+                <p>
+                  Status :
+                  <span class="text-danger fs-6 fw-semibold">Habis</span>
+                </p>
+                <% } %>
+                <p class="card-text">
+                  <small class="text-muted"><%= product.description %></small>
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <% }) %>
+    </div>
+  </div>
+</div>

@@ -6,13 +6,18 @@ import path from "path";
 type DestinationCallback = (error: Error | null, destination: string) => void;
 type FileNameCallback = (error: Error | null, filename: string) => void;
 
-const storage = multer.diskStorage({
+export const storage = multer.diskStorage({
   destination: function (
     req: Request,
     file: Express.Multer.File,
     callback: DestinationCallback
   ) {
-    const dir = path.join(__dirname, "../public/upload/sertifikat");
+    let dir: string;
+    if (req.session.admin) {
+      dir = path.join(__dirname, "../public/upload/product");
+    } else {
+      dir = path.join(__dirname, "../public/upload/sertifikat");
+    }
 
     try {
       mkdirSync(dir);
@@ -30,20 +35,3 @@ const storage = multer.diskStorage({
     callback(null, Date.now() + path.extname(file.originalname));
   },
 });
-
-const multerOption = {
-  fileFilter: function (
-    req: Request,
-    file: Express.Multer.File,
-    callback: FileFilterCallback
-  ) {
-    const ext = path.extname(file.originalname);
-    if (ext !== ".pdf") {
-      return callback(null, false);
-    }
-    callback(null, true);
-  },
-  storage,
-};
-
-export const upload = multer(multerOption);

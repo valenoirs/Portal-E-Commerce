@@ -1,7 +1,7 @@
 {
-  "name": "fullstack-file-encrypt-decrypt-rijndael",
+  "name": "e-commerce-portal",
   "version": "1.0.0",
-  "description": "Fullstack file encryption and decryption using rijndael algorithm.",
+  "description": "E-Commerce Portal for UMKM.",
   "main": "index.js",
   "scripts": {
     "start": "npm run build && npm run serve",

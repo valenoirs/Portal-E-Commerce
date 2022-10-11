@@ -4,6 +4,7 @@ export interface IAdmin {
   email: string;
   phone: string;
   password: string;
+  description: string;
   certificatePIRT: string;
   certificateHalal: string;
   isActive: boolean;

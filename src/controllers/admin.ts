@@ -18,24 +18,26 @@ export const signIn = async (req: Request, res: Response) => {
 
     // Check if email registered
     if (!admin) {
-      console.log("[SERVER]: Email not registered");
       req.flash("error", "Email belum terdaftar.");
+      console.log("[SERVER]: Email not registered");
       return res.redirect("/signin");
     }
 
     // Check if password match
     if (password !== admin.password) {
-      console.log("[SERVER]: Incorrect password");
       req.flash("error", "Password salah.");
+      console.log("[SERVER]: Incorrect password");
       return res.redirect("/signin");
     }
 
-    const { id } = admin;
+    const { id, name, isOpen } = admin;
 
     // Create session
-    const adminSession = {
+    const adminSession: Pick<IAdmin, "id" | "name" | "email" | "isOpen"> = {
       id,
+      name,
       email,
+      isOpen,
     };
 
     req.session.admin = adminSession;
@@ -45,8 +47,8 @@ export const signIn = async (req: Request, res: Response) => {
     return res.redirect("/");
   } catch (error) {
     // Sign in error
-    console.error("[SERVER]: Sign in error.", error);
     req.flash("error", "Terjadi kesalahan saat mencoba masuk, coba lagi.");
+    console.error("[SERVER]: Sign in error.", error);
     return res.redirect("/signin");
   }
 };
@@ -67,15 +69,15 @@ export const signUp = async (req: Request, res: Response) => {
 
     // Check if email already registered
     if (admin) {
-      console.log("[SERVER]: Email already existed.");
       req.flash("error", "Email sudah terdaftar sebagai admin.");
+      console.log("[SERVER]: Email already existed.");
       return res.redirect("/signup");
     }
 
     // Check if phone already registered
     if (admin && (admin as IAdmin).phone === phone) {
-      console.log("[SERVER]: Phone already existed.");
       req.flash("error", "Nomor HP sudah terdaftar sebagai admin.");
+      console.log("[SERVER]: Phone already existed.");
       return res.redirect("/signup");
     }
 
@@ -83,26 +85,26 @@ export const signUp = async (req: Request, res: Response) => {
 
     // Check if password char less than 8
     if (password.length < 8) {
-      console.log("[SERVER]: Password length less than 8.");
       req.flash("error", "Password harus lebih dari 8 karakter.");
+      console.log("[SERVER]: Password length less than 8.");
       return res.redirect("/signup");
     }
 
     // Check if password is correct
     if (password !== passwordConfirmation) {
-      console.log("[SERVER]: Password Confirmation failed.");
       req.flash("error", "Konfirmasi Password gagal.");
+      console.log("[SERVER]: Password Confirmation failed.");
       return res.redirect("/signup");
     }
 
     req.body.certificatePIRT = path.join(
       __dirname,
-      `../public/upload/sertifikat/${pirtCertificate.filename}`
+      `../public/upload/certificate/${pirtCertificate.filename}`
     );
 
     req.body.certificateHalal = path.join(
       __dirname,
-      `../public/upload/sertifikat/${halalCertificate.filename}`
+      `../public/upload/certificate/${halalCertificate.filename}`
     );
 
     delete req.body.passwordConfirmation;
@@ -117,11 +119,11 @@ export const signUp = async (req: Request, res: Response) => {
     return res.redirect("/signin");
   } catch (error) {
     // Sign up error
-    console.error("[SERVER]: Sign up error.", error);
     req.flash(
       "error",
       "Terjadi kesalahan saat melakukan pendaftaran, coba lagi."
     );
+    console.error("[SERVER]: Sign up error.", error);
     return res.redirect("/signup");
   }
 };
@@ -136,8 +138,8 @@ export const signOut = async (req: Request, res: Response) => {
   try {
     // Check if session id provided
     if (!req.session.admin) {
-      console.log("[SERVER]: No session id provided.");
       req.flash("error", "Terjadi kesalahan saat mencoba keluar, coba lagi.");
+      console.log("[SERVER]: No session id provided.");
       return res.redirect("/");
     }
 
@@ -154,8 +156,81 @@ export const signOut = async (req: Request, res: Response) => {
     });
   } catch (error) {
     // Sign out error
-    console.error("[SERVER]: Sign out error.", error);
     req.flash("error", "Terjadi kesalahan saat mencoba keluar, coba lagi.");
+    console.error("[SERVER]: Sign out error.", error);
     return res.redirect("/");
+  }
+};
+
+/**
+ * Admin Sign out controller
+ * @param req Node HTTP Request
+ * @param res Node HTTP Response
+ * @returns HTTP Response
+ */
+export const updateAdmin = async (req: Request, res: Response) => {
+  console.log(req.body);
+  try {
+    const { id } = req.session.admin;
+
+    if (req.query.updateToko) {
+      let isOpen = true;
+      let notification = "Toko dibuka.";
+
+      if (req.body.isOpen === "true") {
+        isOpen = false;
+        notification = "Toko ditutup.";
+      }
+
+      await Admin.findByIdAndUpdate(id, { $set: { isOpen } });
+
+      req.session.admin.isOpen = isOpen;
+
+      console.log("BUKA TOKO");
+
+      req.flash("admin", notification);
+      console.log("[SERVER]: Toko information updated.");
+      return res.redirect("/");
+    }
+
+    await Admin.findByIdAndUpdate(id, { $set: req.body });
+
+    req.flash("admin", "Informasi Toko berhasil diperbarui.");
+    console.log("[SERVER]: Admin information updated.");
+    return res.redirect("/");
+  } catch (error) {
+    req.flash("admin", "Informasi Toko gagal diperbarui, coba lagi.");
+    console.error("[SERVER]: Admin/Toko information update error.");
+    return res.redirect("/");
+  }
+};
+
+/**
+ * Get all Admin controller
+ * @param req Node HTTP Request
+ * @param res Node HTTP Response
+ * @returns HTTP Response
+ */
+export const readAdmin = async (req: Request, res: Response) => {
+  try {
+    const admin = await Admin.find();
+
+    return res.status(200).send({
+      success: true,
+      status: 200,
+      data: {
+        admin,
+      },
+    });
+  } catch (error) {
+    return res.status(500).send({
+      error: true,
+      status: 500,
+      type: "GetAdminError",
+      data: {
+        message:
+          "Something went wrong while getting admin data, please try again.",
+      },
+    });
   }
 };

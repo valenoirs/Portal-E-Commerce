@@ -1,0 +1,189 @@
+<div
+  class="modal fade"
+  id="tambahProduct"
+  tabindex="-1"
+  aria-labelledby="tambahProductLabel"
+  aria-hidden="true"
+>
+  <div class="modal-dialog modal-dialog-scrollable modal-dialog-centered">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title text-success" id="tambahProductLabel">Tambah Product</h5>
+        <button
+          type="button"
+          class="btn-close"
+          data-bs-dismiss="modal"
+          aria-label="Close"
+        ></button>
+      </div>
+      <div class="modal-body">
+        <form method="post" action="/product" enctype="multipart/form-data">
+            <div class="mb-3">
+                <label for="product" class="form-label">Nama Product</label>
+                <input type="text" class="form-control" id="product" name="name" required>
+            </div>
+            <div class="mb-3">
+                <label for="description" class="form-label">Deskripsi Product</label>
+                <input type="text" class="form-control" id="description" name="description" required>
+            </div>
+            <div class="mb-3">
+                <label for="price" class="form-label">Harga</label>
+                <input type="number" class="form-control" id="price" name="price" required>
+            </div>
+            <div class="mb-3">
+                <label for="file" class="form-label">Foto</label>
+                <input type="file" class="form-control" id="file" name="file" required>
+                <div id="phoneHelp" class="form-text">
+                    1x1.png image
+                </div>
+            </div>
+        </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Batal</button>
+                <button type="submit" class="btn btn-success">Tambah</button>
+            </div>
+        </form>
+    </div>
+    </div>
+  </div>
+</div>
+
+<% product.forEach(product => { %>
+  <!-- Update Product -->
+  <div
+    class="modal fade"
+    id="update<%= product.id %>"
+    tabindex="-1"
+    aria-labelledby="update<%= product.id %>"
+    aria-hidden="true"
+  >
+    <div class="modal-dialog modal-dialog-scrollable modal-dialog-centered">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title text-success" id="update<%= product.id %>">Update Informasi Product</h5>
+          <button
+            type="button"
+            class="btn-close"
+            data-bs-dismiss="modal"
+            aria-label="Close"
+          ></button>
+        </div>
+        <div class="modal-body">
+          <form method="post" action="/product?_method=put" enctype="multipart/form-data">
+              <div class="mb-3">
+                  <label for="product" class="form-label">Nama Product</label>
+                  <input type="text" class="form-control" id="product" name="name" value="<%= product.name %>" required>
+              </div>
+              <div class="mb-3">
+                  <label for="description" class="form-label">Deskripsi Product</label>
+                  <input type="text" class="form-control" id="description" name="description" value="<%= product.description %>" required>
+              </div>
+              <div class="mb-3">
+                  <label for="price" class="form-label">Harga</label>
+                  <input type="number" class="form-control" id="price" name="price" value="<%= product.price %>" required>
+              </div>
+              <div class="mb-3">
+                  <label for="file" class="form-label">Foto</label>
+                  <input type="file" class="form-control" id="file" name="file">
+                  <div id="phoneHelp" class="form-text">
+                      1x1.png image
+                  </div>
+              </div>
+
+              <input type="hidden" name="productId" value="<%= product.id %>">
+          </div>
+              <div class="modal-footer">
+                  <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Batal</button>
+                  <button type="submit" class="btn btn-success">Update</button>
+              </div>
+          </form>
+      </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Delete Product -->
+  <div
+    class="modal fade"
+    id="delete<%= product.id %>"
+    tabindex="-1"
+    aria-labelledby="delete<%= product.id %>"
+    aria-hidden="true"
+  >
+    <div class="modal-dialog modal-dialog-scrollable modal-dialog-centered">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title text-danger" id="delete<%= product.id %>">Hapus Product</h5>
+          <button
+            type="button"
+            class="btn-close"
+            data-bs-dismiss="modal"
+            aria-label="Close"
+          ></button>
+        </div>
+        <div class="modal-body">
+          <form method="post" action="/product?_method=delete">
+              <p>Yakin ingin menghapus product <span class="text-danger"><%= product.name %></span>?</p>
+              <input type="hidden" name="productId" value="<%= product.id %>">
+          </div>
+              <div class="modal-footer">
+                  <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Batal</button>
+                  <button type="submit" class="btn btn-danger">Hapus</button>
+              </div>
+          </form>
+      </div>
+      </div>
+    </div>
+  </div>
+<% }) %>
+
+<div
+  class="modal fade"
+  id="updateAdmin"
+  tabindex="-1"
+  aria-labelledby="updateAdminLabel"
+  aria-hidden="true"
+>
+  <div class="modal-dialog modal-dialog-scrollable modal-dialog-centered">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title text-success" id="updateAdminLabel">Update Informasi Toko</h5>
+        <button
+          type="button"
+          class="btn-close"
+          data-bs-dismiss="modal"
+          aria-label="Close"
+        ></button>
+      </div>
+      <div class="modal-body">
+        <form method="post" action="/admin?_method=put">
+            <div class="mb-3">
+                <label for="email" class="form-label">Email</label>
+                <input type="text" class="form-control" id="email" name="email" value="<%= admin.email %>" disabled>
+            </div>
+            <div class="mb-3">
+                <label for="email" class="form-label">Nomor Telepon</label>
+                <input type="text" class="form-control" id="email" name="phone" value="<%= admin.phone %>" disabled>
+            </div>
+            <div class="mb-3">
+                <label for="name" class="form-label">Nama Toko</label>
+                <input type="text" class="form-control" id="name" name="name" value="<%= admin.name %>" required>
+            </div>
+            <div class="mb-3">
+                <label for="address" class="form-label">Alamat Toko</label>
+                <input type="text" class="form-control" id="address" name="address" value="<%= admin.address %>" required>
+            </div>
+            <div class="mb-3">
+                <label for="description" class="form-label">Deskripsi Toko</label>
+                <input type="text" class="form-control" id="description" name="description" value="<%= admin.description %>" required>
+            </div>
+        </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Batal</button>
+                <button type="submit" class="btn btn-success">Update</button>
+            </div>
+        </form>
+    </div>
+    </div>
+  </div>
+</div>

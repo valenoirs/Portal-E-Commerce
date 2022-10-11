@@ -8,6 +8,7 @@ import session from "express-session";
 import flash from "connect-flash";
 
 // Import Routes
+import { router as productRoute } from "./routes/product";
 import { router as adminRoute } from "./routes/admin";
 import { router as userRoute } from "./routes/user";
 import { router as viewRoute } from "./routes/view";
@@ -59,6 +60,7 @@ app.set("view engine", "ejs");
 // HTTP Routes
 app.use("/", viewRoute);
 app.use("/admin", adminRoute);
+app.use("/product", productRoute);
 app.use("/user", userRoute);
 
 // Ping
