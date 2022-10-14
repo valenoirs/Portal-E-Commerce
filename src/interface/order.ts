@@ -1,4 +1,5 @@
 export interface IOrderProduct {
+  productId: string;
   name: string;
   price: number;
   quantity: number;

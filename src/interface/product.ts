@@ -1,6 +1,7 @@
 export interface IProduct {
   id?: any;
   adminId: string;
+  admin: string;
   name: string;
   description: string;
   price: number;

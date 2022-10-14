@@ -42,8 +42,10 @@
     <p><%= admin.description %></p>
     <h5>
       <% if (locals.admin.isOpen) { %>
-      <i class="bi bi-door-open-fill"></i>
-      <span class="text-success">Buka</span>
+
+      <span class="text-success"
+        ><i class="bi bi-door-open-fill"></i> Buka</span
+      >
       <% } else {%>
       <span class="text-danger"
         ><i class="bi bi-door-closed-fill"></i> Tutup</span

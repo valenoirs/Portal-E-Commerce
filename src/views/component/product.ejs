@@ -147,7 +147,10 @@
                     </li>
                   </ul>
                 </div>
-                <p class="card-text">Rp. <%= product.price %></p>
+                <p class="card-text">
+                  Rp. <%= product.price.toString()
+                  .replace(/\B(?=(\d{3})+(?!\d))/g, ",") %>
+                </p>
                 <% if (product.available) { %>
                 <p>
                   Status :

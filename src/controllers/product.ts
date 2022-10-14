@@ -19,6 +19,7 @@ export const createProduct = async (req: Request, res: Response) => {
 
     req.body.picture = `/upload/product/${filename}`;
     req.body.adminId = req.session.admin.id;
+    req.body.admin = req.session.admin.name;
 
     await new Product(req.body).save();
 

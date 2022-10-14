@@ -61,7 +61,7 @@ app.set("view engine", "ejs");
 app.use("/", viewRoute);
 app.use("/admin", adminRoute);
 app.use("/product", productRoute);
-app.use("/user", userRoute);
+app.use("/api/user", userRoute);
 
 // Ping
 app.get("/ping", (req: Request, res: Response) => {
