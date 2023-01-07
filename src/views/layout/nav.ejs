@@ -1,10 +1,12 @@
-<nav id="navbar" class="navbar navbar-expand-lg navbar-light bg-light">
+<nav id="navbar" class="navbar navbar-expand-lg navbar-light bg-success">
   <div class="container-fluid ps-5 pe-5">
-    <a class="navbar-brand text-success p-4" role="button" href="/"
-      ><h4><i class="bi bi-behance"></i> <span>E-Commerce</span></h4></a
-    >
-    <!-- <button
-      class="navbar-toggler"
+    <a class="navbar-brand text-light py-3" href="/signin"
+      >
+      <img src="./assets/adaptive-icon.png" alt="" width="55px"> <span class="fw-bold">UMKM</span> Market
+      <!-- <h4><i class="bi bi-google-play"></i> <span>E-Commerce</span></h4> -->
+    </a>
+    <button
+      class="navbar-toggler text-light"
       type="button"
       data-bs-toggle="collapse"
       data-bs-target="#navbarSupportedContent"
@@ -13,10 +15,10 @@
       aria-label="Toggle navigation"
     >
       <span class="navbar-toggler-icon"></span>
-    </button> -->
-    <!-- <div class="collapse navbar-collapse" id="navbarSupportedContent">
+    </button>
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
       <ul class="navbar-nav me-auto mb-2 mb-lg-0 p-1">
-        <li class="nav-item">
+        <!-- <li class="nav-item">
           <a class="nav-link" href="/order"
             >Order</a
           >
@@ -30,13 +32,13 @@
           <a class="nav-link" href="/profile"
             >Profile</a
           >
-        </li>
-      </ul> -->
+        </li> -->
+      </ul>
       <div class="d-flex">
         <% if (locals.admin) { %>
         <div class="dropdown">
           <a
-            class="text-success dropdown-toggle"
+            class="text-light dropdown-toggle"
             id="navbarDropdown"
             role="button"
             data-bs-toggle="dropdown"
@@ -66,7 +68,7 @@
                   class="btn text-secondary"
                   style="border: 0; padding: 0"
                 >
-                  <% if (locals.admin.isOpen) { %> Tutup Toko <% } else { %> Buka Toko <% } %>
+                  <% if (locals.admin.isOpen) { %> <i class="bi bi-door-closed-fill"></i> Tutup Toko <% } else { %> <i class="bi bi-door-open-fill"></i> Buka Toko <% } %>
                 </button>
               </form>
             </li>
@@ -77,18 +79,20 @@
                 type="button"
                 data-bs-toggle="modal"
                 data-bs-target="#updateAdmin"
-                >Edit Toko</a
+                ><i class="bi bi-pencil-square"></i> Edit Toko</a
               >
             </li>
             <li>
               <a
                 class="dropdown-item text-danger text-decoration-none"
                 href="/admin/signout"
-                >Logout</a
+                ><i class="bi bi-box-arrow-left"></i> Logout</a
               >
             </li>
           </ul>
         </div>
+        <% } else { %>
+          <a class="text-light text-decoration-none mt-1" href="/download"><h6><i class="bi bi-android"></i> Download Apk</h6></a>
         <% } %>
       </div>
       <!-- <% if (locals.admin) { %>

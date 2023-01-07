@@ -31,13 +31,13 @@ export const signin = async (req: Request, res: Response) => {
       });
     }
 
-    const { name, phone } = user;
+    const { name, phone, id } = user;
 
     return res.status(200).send({
       success: true,
       status: 200,
       message: "Login berhasil.",
-      user: { name, phone, email },
+      user: { name, phone, email, id },
     });
   } catch (error) {
     console.error("[ERROR]: User sign up failed\n", error);

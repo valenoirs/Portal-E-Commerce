@@ -10,7 +10,8 @@ export interface IAdmin {
   isActive: boolean;
   isOpen: boolean;
   address: string;
-  rating: number;
+  rated: string;
+  rating: number[];
   createdAt?: Date;
   updatedAt?: Date;
 }

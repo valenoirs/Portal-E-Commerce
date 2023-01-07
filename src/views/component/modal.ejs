@@ -137,6 +137,7 @@
   </div>
 <% }) %>
 
+<!-- Modal Update Admin -->
 <div
   class="modal fade"
   id="updateAdmin"
@@ -187,3 +188,136 @@
     </div>
   </div>
 </div>
+
+<!-- Modal All Order -->
+<div
+  class="modal fade"
+  id="order"
+  tabindex="-1"
+  aria-labelledby="orderLabel"
+  aria-hidden="true"
+>
+  <div class="modal-dialog modal-fullscreen modal-dialog-scrollable modal-dialog-centered">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title text-success" id="orderLabel">Semua Pesanan</h5>
+        <button
+          type="button"
+          class="btn-close"
+          data-bs-dismiss="modal"
+          aria-label="Close"
+        ></button>
+      </div>
+      <div class="modal-body">
+        <div class="row">
+          <% order.forEach(item => { %>
+            <div class="col mb-5">
+              <div class="card" style="width: 18rem">
+                <div class="card-body">
+                  <p class="text-muted"><i class="bi bi-clock"></i> <%= item.createdAt.toLocaleDateString('id', { day: 'numeric', month: 'long', year: 'numeric'}) %> <%= item.createdAt.toLocaleTimeString('id') %></p>
+                  <h5 class="card-title text-success"><%= item.userName %></h5>
+                  <h6 class="text-secondary">Invoice ID : <%= item.invoiceId %></h6>
+                  <h6 class="text-secondary mb-3">
+                    <% if (item.status === "Pesanan Diterima") { %>
+                      <span class="text-success"><i class="bi bi-clipboard2-check-fill"></i> <%= item.status %></span>
+                    <% } else { %>  
+                      <span class="text-secondary"><i class="bi bi-hourglass-split"></i> <%= item.status %></span>
+                    <% } %>
+                  </h6>
+                  <p class="card-text">Total Bayar : <span class="text-success">Rp. <%= item.totalPayment.toLocaleString() %></span></p>
+                  <a 
+                     class="btn btn-outline-success"
+                     type="button"
+                     data-bs-toggle="modal"
+                     data-bs-target="#order<%= item.id %>"
+                  >
+                   Detail Pesanan
+                  </a>
+                </div>
+              </div>
+            </div>
+          <% }) %>
+        </div>
+      </div>
+            <!-- <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Batal</button>
+                <button type="submit" class="btn btn-success">Tambah</button>
+            </div> -->
+    </div>
+    </div>
+  </div>
+</div>
+
+<!-- Modal Order Detail -->
+<% order.forEach(item => { %>
+  <div
+    class="modal fade"
+    id="order<%= item.id %>"
+    tabindex="-1"
+    aria-labelledby="order<%= item.invoiceId %>"
+    aria-hidden="true"
+  >
+    <div class="modal-dialog modal-dialog-scrollable modal-dialog-centered">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title text-success" id="order<%= item.invoiceId %>">-----------------------------------</h5>
+          <button
+            type="button"
+            class="btn-close"
+            data-bs-dismiss="modal"
+            aria-label="Close"
+          ></button>
+        </div>
+        <div class="modal-body">
+          <div class="row p-4">
+            <div class="col">
+              <div class="row mb-3">
+                <h5 class="text-success">
+                  <%= item.userName %>
+                  <% if (item.isCOD) { %>
+                    <span class="text-secondary">( COD )</span>
+                  <% } %>
+                </h5>
+                <h6 class="text-secondary">Invoice ID : <%= item.invoiceId %></h6>
+                <h6 class="text-secondary text-success"><i class="bi bi-whatsapp"></i> <%= item.userPhone %></h6>
+                <h6 class="text-secondary">
+                  <% if (item.status === "Pesanan Diterima") { %>
+                    <span class="text-success"><i class="bi bi-clipboard2-check-fill"></i> <%= item.status %></span>
+                  <% } else { %>  
+                    <span class="text-secondary"><i class="bi bi-hourglass-split"></i> <%= item.status %></span>
+                  <% } %>  
+                </h6>
+              </div>
+              <div class="row" style="border-top: 1px dashed #cccccc;">
+                <div class="col mt-3">
+                  <% item.product.forEach((item, index) => { %>
+                    <p>• <%= item.quantity %> x <%= item.name %></p>
+                    <p>Rp. <%= item.price.toLocaleString() %></p>
+                  <% }) %>
+                </div>
+              </div>
+              <div class="row pt-3 pb-3" style="border-top: 1px double #cccccc; border-bottom: 1px double #cccccc;">
+                <p class="card-text">Total Bayar : <span class="text-success">Rp. <%= item.totalPayment.toLocaleString() %></span></p>
+                <p class="text-muted"><i class="bi bi-clock"></i> <%= item.createdAt.toLocaleDateString('id', { day: 'numeric', month: 'long', year: 'numeric'}) %> <%= item.createdAt.toLocaleTimeString('id') %></p>
+              </div>
+              <div class="row mt-4 text-end">
+                <form  method="post" action="/api/order?_method=put&productId=<%= item.id %>">
+                  <% if (item.status === "Menunggu Pembayaran") { %>
+                    <input type="hidden" name="status" value="Pesanan Diproses">
+                  <% } else if (item.status === "Pesanan Diproses") { %>
+                    <input type="hidden" name="status" value="Pesanan Dikirim">
+                  <% } %>
+
+                  <% if (item.status !== "Pesanan Diterima" || item.status === "Pesanan Dikirim") { %>
+                    <input type="submit" class="btn btn-outline-success" value="Update Status">
+                  <% } %>
+                </form>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      </div>
+    </div>
+  </div>
+<% }) %>

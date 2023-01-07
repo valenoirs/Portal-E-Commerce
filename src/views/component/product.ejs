@@ -41,18 +41,21 @@
 
 <div class="row justify-content-center">
   <div class="col-10 p-5 text-dark">
-    <div class="mb-5 row">
+    <div class="row mb-5">
       <div class="col">
-        <h4>Product</h4>
+        <h4>
+          <span class="fs-5 text-success">
+            <i class="bi bi-trash2"></i>
+          </span>
+          - Product
+        </h4>
         <a
           class="text-decoration-none text-success"
           type="button"
           data-bs-toggle="modal"
           data-bs-target="#tambahProduct"
         >
-          <h5>
-            <i class="bi bi-plus-square-fill"></i>
-          </h5>
+          <h6><i class="bi bi-plus-square-fill"></i> Tambah Product</h6>
         </a>
       </div>
     </div>
@@ -105,7 +108,9 @@
                         data-bs-toggle="modal"
                         data-bs-target="#update<%= product.id %>"
                       >
-                        <p class="card-title text-success">Edit Product</p>
+                        <p class="card-title text-success">
+                          <i class="bi bi-pencil-square"></i> Edit Product
+                        </p>
                       </a>
                     </li>
                     <li>
@@ -115,7 +120,9 @@
                         data-bs-toggle="modal"
                         data-bs-target="#delete<%= product.id %>"
                       >
-                        <p class="card-title text-danger">Hapus Product</p>
+                        <p class="card-title text-danger">
+                          <i class="bi bi-trash3"></i> Hapus Product
+                        </p>
                       </a>
                     </li>
                     <li><hr class="dropdown-divider" /></li>
@@ -140,8 +147,9 @@
                           class="btn text-secondary"
                           style="border: 0; padding: 0"
                         >
-                          <% if (product.available) { %> Habis <% } else { %>
-                          Tersedia <% } %>
+                          <% if (product.available) { %>
+                          <i class="bi bi-recycle"></i> Habis <% } else { %>
+                          <i class="bi bi-recycle"></i> Tersedia <% } %>
                         </button>
                       </form>
                     </li>

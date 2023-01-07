@@ -10,32 +10,42 @@ router.get("/", async (req, res) => {
   if (!req.session.admin) return res.redirect("/signin");
 
   const { id } = req.session.admin;
-  const admin = await Admin.findOne({ id });
+  const admin = await Admin.findById(id);
   const product = await Product.find({ adminId: id });
   const order = await Order.find({ adminId: id });
+  const lastOrder = await Order.find({ adminId: id }).limit(3);
 
-  res.render("home", {
+  return res.render("home", {
     layout: "layout",
     error: req.flash("error"),
     productNotification: req.flash("product"),
     adminNotification: req.flash("admin"),
     admin,
     order,
+    lastOrder,
     product,
+  });
+});
+
+router.get("/download", (req: Request, res: Response) => {
+  if (req.session.admin) return res.redirect("/");
+  return res.render("download", {
+    layout: "layout",
+    error: req.flash("error"),
   });
 });
 
 router.get("/order", async (req: Request, res: Response) => {
   if (!req.session.admin) return res.redirect("/signin");
-  res.render("order", { layout: "layout", error: req.flash("error") });
+  return res.render("order", { layout: "layout", error: req.flash("error") });
 });
 
 router.get("/signin", async (req, res) => {
   if (req.session.admin) return res.redirect("/");
-  res.render("signin", { layout: "layout", error: req.flash("error") });
+  return res.render("signin", { layout: "layout", error: req.flash("error") });
 });
 
 router.get("/signup", async (req, res) => {
   if (req.session.admin) return res.redirect("/");
-  res.render("signup", { layout: "layout", error: req.flash("error") });
+  return res.render("signup", { layout: "layout", error: req.flash("error") });
 });

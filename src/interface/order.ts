@@ -9,15 +9,20 @@ export interface IOrderProduct {
 
 export interface IOrder {
   id?: any;
-  adminId: string;
+  invoiceId: string;
   userId: string;
-  adminName: string;
   userName: string;
+  userPhone: string;
+  adminId: string;
+  adminName: string;
+  adminPhone: string;
   product: any;
   totalPayment: number;
   status: string;
-  note: string;
   paymentProof: string;
+  isCOD: boolean;
+  isRated: boolean;
+  rated: number;
   createdAt?: Date;
   updatedAt?: Date;
 }

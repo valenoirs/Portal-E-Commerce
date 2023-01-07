@@ -12,6 +12,7 @@ import { router as productRoute } from "./routes/product";
 import { router as adminRoute } from "./routes/admin";
 import { router as userRoute } from "./routes/user";
 import { router as viewRoute } from "./routes/view";
+import { router as orderRoute } from "./routes/order";
 
 // Init
 const app: Express = express();
@@ -62,6 +63,7 @@ app.use("/", viewRoute);
 app.use("/admin", adminRoute);
 app.use("/product", productRoute);
 app.use("/api/user", userRoute);
+app.use("/api/order", orderRoute);
 
 // Ping
 app.get("/ping", (req: Request, res: Response) => {

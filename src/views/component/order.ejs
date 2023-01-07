@@ -1,50 +1,68 @@
 <div class="row justify-content-center">
   <div class="col-10 p-5 text-dark">
-    <h4 class="mb-5">Pesanan Terakhir</h4>
-
     <div class="row mb-5">
       <div class="col">
-        <div class="card" style="width: 18rem">
-          <div class="card-body">
-            <h5 class="card-title">Special title treatment</h5>
-            <p class="card-text">
-              With supporting text below as a natural lead-in to additional
-              content.
-            </p>
-            <a href="#" class="btn btn-success">Detail Pesanan</a>
-          </div>
-        </div>
-      </div>
-      <div class="col">
-        <div class="card" style="width: 18rem">
-          <div class="card-body">
-            <h5 class="card-title">Special title treatment</h5>
-            <p class="card-text">
-              With supporting text below as a natural lead-in to additional
-              content.
-            </p>
-            <a href="#" class="btn btn-success">Detail Pesanan</a>
-          </div>
-        </div>
-      </div>
-      <div class="col">
-        <div class="card" style="width: 18rem">
-          <div class="card-body">
-            <h5 class="card-title">Special title treatment</h5>
-            <p class="card-text">
-              With supporting text below as a natural lead-in to additional
-              content.
-            </p>
-            <a href="#" class="btn btn-success">Detail Pesanan</a>
-          </div>
-        </div>
+        <h4>
+          <span class="fs-5 text-success">
+            <i class="bi bi-file-earmark-spreadsheet-fill"></i>
+          </span>
+          - Pesanan Terakhir
+        </h4>
+        <a
+          class="text-decoration-none text-success"
+          type="button"
+          data-bs-toggle="modal"
+          data-bs-target="#order"
+        >
+          <h6><i class="bi bi-arrow-up-right-square-fill"></i></i> Lihat Semua</h6>
+        </a>
       </div>
     </div>
 
-    <a class="text-decoration-none" href="#">
-      <a class="text-decoration-none" href="/order">
-        <h6 class="text-success text-end">Lihat Semua...</h6>
-      </a>
-    </a>
+    <% if (lastOrder.length === 0) { %>
+      <div class="row">
+        <div class="col">
+          <div class="alert alert-success alert-dismissible fade show">
+            <button
+              type="button"
+              class="btn-close"
+              data-bs-dismiss="alert"
+            ></button>
+            <i class="bi bi-info-circle-fill"></i> Belum ada pesanan nih, semangat promosinya.
+          </div>
+        </div>
+      </div>
+      <% } %>
+
+    <div class="row mb-5">
+      <% lastOrder.forEach(order => { %>
+        <div class="col">
+          <div class="card mb-3" style="width: 18rem">
+            <div class="card-body">
+              <p class="text-muted"><i class="bi bi-clock"></i> <%= order.createdAt.toLocaleDateString('id', { day: 'numeric', month: 'long', year: 'numeric'}) %> <%= order.createdAt.toLocaleTimeString('id') %></p>
+              <h5 class="card-title text-success"><%= order.userName %></h5>
+              <h6 class="text-secondary">Invoice ID : <%= order.invoiceId %></h6>
+              <h6 class="mb-3">
+                <% if (order.status === "Pesanan Diterima") { %>
+                  <span class="text-success"><i class="bi bi-clipboard2-check-fill"></i> <%= order.status %></span>
+                <% } else { %>  
+                  <span class="text-secondary"><i class="bi bi-hourglass-split"></i> <%= order.status %></span>
+                <% } %>
+              </h6>
+              <p class="card-text">Total Bayar : <span class="text-success">Rp. <%= order.totalPayment.toLocaleString() %></span></p>
+              <a 
+                 class="btn btn-outline-success"
+                 type="button"
+                 data-bs-toggle="modal"
+                 data-bs-target="#order<%= order.id %>"
+              >
+               Detail Pesanan
+              </a>
+            </div>
+          </div>
+        </div>
+      <% }) %>
+    </div>
+
   </div>
 </div>
