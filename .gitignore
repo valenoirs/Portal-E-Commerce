@@ -5,3 +5,4 @@ ignore
 src/log
 src/ignore
 src/public/upload
+src/public/file
