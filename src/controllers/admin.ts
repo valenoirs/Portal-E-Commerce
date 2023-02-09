@@ -159,7 +159,7 @@ export const signOut = async (req: Request, res: Response) => {
 };
 
 /**
- * Admin Sign out controller
+ * Admin Update controller
  * @param req Node HTTP Request
  * @param res Node HTTP Response
  * @returns HTTP Response

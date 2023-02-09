@@ -10,6 +10,7 @@ import flash from "connect-flash";
 // Import Routes
 import { router as productRoute } from "./routes/product";
 import { router as adminRoute } from "./routes/admin";
+import { router as rootRoute } from "./routes/root";
 import { router as userRoute } from "./routes/user";
 import { router as viewRoute } from "./routes/view";
 import { router as orderRoute } from "./routes/order";
@@ -46,9 +47,8 @@ app.use(flash());
 
 // User Session
 app.use((req, res, next) => {
-  if (req.session.admin) {
-    res.locals.admin = req.session.admin;
-  }
+  if (req.session.admin) res.locals.admin = req.session.admin; // Admin Session
+  if (req.session.root) res.locals.root = req.session.root; // Root Session
 
   next();
 });
@@ -61,6 +61,7 @@ app.set("view engine", "ejs");
 // HTTP Routes
 app.use("/", viewRoute);
 app.use("/admin", adminRoute);
+app.use("/root", rootRoute);
 app.use("/product", productRoute);
 app.use("/api/user", userRoute);
 app.use("/api/order", orderRoute);

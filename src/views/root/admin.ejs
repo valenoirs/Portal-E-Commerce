@@ -1,0 +1,65 @@
+<!-- Modal -->
+<!-- <%- include('./component/modal/editAdmin') %> -->
+<!--  -->
+<%- include('./component/modal/hapusAdmin') %>
+
+<div class="container-fluid py-5">
+  <div class="row justify-content-center">
+    <div class="col-10 p-5 text-secondary">
+      <h1 class="text-dark mb-5">Daftar Toko</h1>
+      <table class="table">
+        <thead>
+          <tr>
+            <th scope="col">No</th>
+            <th scope="col">Nama</th>
+            <th scope="col">Email</th>
+            <th scope="col">No. Telp</th>
+            <th scope="col">PIRT</th>
+            <th scope="col">Halal</th>
+            <th scope="col">Status</th>
+            <th scope="col">Alamat</th>
+            <th scope="col">Rating</th>
+            <th scope="col">Action</th>
+          </tr>
+        </thead>
+        <tbody>
+          <% admins.forEach((admin, index) => { %>
+          <tr>
+            <th scope="row"><%= index + 1 %></th>
+            <td><%= admin.name %></td>
+            <td><%= admin.email %></td>
+            <td><%= admin.phone %></td>
+            <td><a href="<%= admin.certificatePIRT %>">Lihat</a></td>
+            <td><a href="<%= admin.certificateHalal %>">Lihat</a></td>
+            <td><% if (admin.isOpen) { %> Buka <% } else {%> Tutup <% } %></td>
+            <td><%= admin.address %></td>
+            <td>
+              <%= admin.rated %>
+              <span class="text-warning"><i class="bi bi-star-fill"></i></span>
+            </td>
+            <td>
+              <!-- <a
+                class="text-decoration-none text-success text-center"
+                type="button"
+                data-bs-toggle="modal"
+                data-bs-target="#edit"
+              >
+                <i class="bi bi-pen"></i> Edit
+              </a>
+              | -->
+              <a
+                class="text-decoration-none text-danger text-center"
+                type="button"
+                data-bs-toggle="modal"
+                data-bs-target="#delete<%= admin.id %>"
+              >
+                <i class="bi bi-trash"></i> Hapus
+              </a>
+            </td>
+          </tr>
+          <% }) %>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>

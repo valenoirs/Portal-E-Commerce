@@ -18,23 +18,20 @@
     </button>
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
       <ul class="navbar-nav me-auto mb-2 mb-lg-0 p-1">
-        <!-- <li class="nav-item">
-          <a class="nav-link" href="/order"
-            >Order</a
-          >
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" href="/product"
-            >Product</a
-          >
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" href="/profile"
-            >Profile</a
-          >
-        </li> -->
-      </ul>
-      <div class="d-flex">
+        <% if (locals.root) { %>
+            <li class="nav-item">
+              <a class="nav-link text-light" href="/root/admin"
+              ><i class="bi bi-houses-fill"></i> Toko</a
+              >
+            </li>
+            <li class="nav-item">
+              <a class="nav-link text-light" href="/root/user"
+              ><i class="bi bi-people-fill"></i> User</a
+              >
+            </li>
+            <% } %>
+        </ul>
+        <div class="d-flex">
         <% if (locals.admin) { %>
         <div class="dropdown">
           <a
@@ -91,6 +88,34 @@
             </li>
           </ul>
         </div>
+        <% } else if(locals.root) { %>
+          <div class="dropdown">
+            <a
+              class="text-light dropdown-toggle"
+              id="navbarDropdown"
+              role="button"
+              data-bs-toggle="dropdown"
+              aria-expanded="false"
+              style="text-decoration: none"
+            >
+              <i class="bi bi-person-circle"></i> <%=
+              locals.root.name%>
+            </a>
+            <ul
+              class="dropdown-menu dropdown-menu-start dropdown-menu-lg-end"
+              aria-labelledby="navbarDropdown"
+            >
+              <li><hr class="dropdown-divider" /></li>
+              <li>
+                <a
+                  class="dropdown-item text-danger text-decoration-none"
+                  href="/root/signout"
+                  ><i class="bi bi-box-arrow-left"></i> Logout</a
+                >
+              </li>
+            </ul>
+          </div>
+          
         <% } else { %>
           <a class="text-light text-decoration-none mt-1" href="/download"><h6><i class="bi bi-android"></i> Download Apk</h6></a>
         <% } %>
