@@ -21,14 +21,14 @@ export const signIn = async (req: Request, res: Response) => {
     if (!root) {
       req.flash("root", "Email belum terdaftar.");
       console.log("[SERVER]: Email not registered");
-      return res.redirect("/signin");
+      return res.redirect("/root/signin");
     }
 
     // Check if password match
     if (password !== root.password) {
       req.flash("root", "Password salah.");
       console.log("[SERVER]: Incorrect password");
-      return res.redirect("/signin");
+      return res.redirect("/root/signin");
     }
 
     const { id, name } = root;
@@ -65,7 +65,7 @@ export const signOut = async (req: Request, res: Response) => {
     if (!req.session.root) {
       req.flash("root", "Terjadi kesalahan saat mencoba keluar, coba lagi.");
       console.log("[SERVER]: No session id provided.");
-      return res.redirect("/");
+      return res.redirect("/root/signin");
     }
 
     const { email } = req.session.root;
@@ -77,13 +77,13 @@ export const signOut = async (req: Request, res: Response) => {
 
       // Sign out success
       console.log(`[SERVER]: ${email} signed out.`);
-      return res.redirect("/");
+      return res.redirect("/root/signin");
     });
   } catch (error) {
     // Sign out error
     req.flash("root", "Terjadi kesalahan saat mencoba keluar, coba lagi.");
     console.error("[SERVER]: Sign out error.", error);
-    return res.redirect("/");
+    return res.redirect("/root");
   }
 };
 
