@@ -43,6 +43,7 @@ export const signIn = async (req: Request, res: Response) => {
     req.session.root = rootSession;
 
     // Sign in success
+    req.flash("root", "Anda berhasil login sebagai Root.");
     console.log("[SERVER]: Root logged in.");
     return res.redirect("/root/admin");
   } catch (error) {
